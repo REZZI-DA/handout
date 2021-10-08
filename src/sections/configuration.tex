@@ -1,0 +1,227 @@
+\section{Configuration}\label{configuation}
+
+\begin{flushleft}
+	Git uses a series of configuration files to determine non-default behavior. There
+	are three different configuration levels, each of which serves a different purpose.
+	Note that higher-level configuration settings take precedence over their children.
+\end{flushleft}
+
+\begin{enumerate}
+	\item \icli{\flag{system}} controls the settings for all users and all repositories on your computer
+	\item \icli{\flag{global}} controls the settings for the currently logged-in user and all his repositories
+	\item \icli{\flag{local}} controls the settings for the repository it resides in
+\end{enumerate}
+
+\begin{flushleft}
+	One of the things you want to set first is an username and an email address
+	to help Git identify you as the author. Most of the time, it is recommended
+	to store these settings in the global configuration file.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} user.name <username>}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git config \flag{global} user.email <email>}
+\end{flushleft}
+
+\begin{flushleft}
+	If you configure a new account on a machine where Git hasn't been used before,
+	make sure to set master as the default branch name everywhere.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} init.defaultBranch master}
+\end{flushleft}
+
+\begin{flushleft}
+	Other than that there are a few more settings you may want to tweak, though there
+	are much more user-specific because they depend on the environment you're operating
+	in. The core editor is the editor Git will use when you want to write a multiline
+	commit message. For example, if VS Code is your editor of choice you would want to write:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} core.editor "code \flag{new-window} \flag{wait}"}
+\end{flushleft}
+
+\begin{flushleft}
+	Another important configuration you want to make helps you avoid line-ending
+	issues if you work on cross-platform projects. Even if you're not involved in
+	cross-platform projects at the moment, it's better to settle this matter now
+	before any problems start to surface later down the line.
+\end{flushleft}
+
+\begin{flushleft}
+	Windows uses both a carriage-return character (\icli{\carret}) and a linefeed character
+	(\icli{\linefeed}) for newlines in its files (CRLF), whereas macOS and Linux systems only
+	use the linefeed character (LF). Git can handle this by auto-converting CRLF line endings into LF
+	when you add a file to the index, and vice versa when it checks out code onto your filesystem. You
+	can turn on this functionality with the \icli{core.autocrlf} setting. If you’re on a Windows machine,
+	set it to \icli{true} -- this converts LF endings into CRLF when you check out code:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} core.autocrlf true}
+\end{flushleft}
+
+\begin{flushleft}
+	If you're on a Linux or macOS system that uses LF line endings, then you don’t want Git to automatically
+	convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced,
+	then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way
+	around by setting \icli{core.autocrlf} to \icli{input}:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} core.autocrlf input}
+\end{flushleft}
+
+\begin{flushleft}
+	This setup should leave you with CRLF endings in Windows checkouts, but LF endings on macOS and Linux
+	systems and in the repository. If you're a Windows programmer doing a Windows-only project, then you
+	can turn off this functionality, recording the carriage returns in the repository by setting \icli{core.autocrlf}
+	to \icli{false}:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} core.autocrlf false}
+\end{flushleft}
+
+\subsection{Alias}
+
+\begin{flushleft}
+	One of the major advantages of using Git from the terminal is that you can easily
+	define your own commands that suits your needs best. See below a list of aliases
+	I frequently use in my day-to-day work.
+\end{flushleft}
+
+\begin{flushleft}
+	Unstage a file without discarding any changes:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} alias.unstage 'reset HEAD {-}{-}'}
+\end{flushleft}
+
+\begin{flushleft}
+	Uncommit a file without discarding any changes:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} alias.uncommit 'reset \flag{soft} HEAD\^{}1'}
+\end{flushleft}
+
+\begin{flushleft}
+	Show the last commit:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git config \flag{global} alias.last 'log -1 HEAD'}
+\end{flushleft}
+
+\begin{flushleft}
+	Display log history as graph. Can be extended through the \icli{\flag{branches} \flag{tags}}
+	and \icli{\flag{all}} flags, making the output of this command increasingly verbose:
+\end{flushleft}
+
+\begin{flushleft}
+	\hbox{\cli{git config \flag{global} alias.graph 'log \flag{graph} \flag{oneline} \flag{decorate}'}}
+\end{flushleft}
+
+\subsection{Dotfiles Repository}\label{dotfiles-repository}
+
+\begin{flushleft}
+	A dotfile repository is a special repository Linux user use to store configuration
+	files.
+\end{flushleft}
+
+\begin{flushleft}
+	Create a new dotfiles repository:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{mkdir -p \home/documents/repos}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git init \flag{bare} \home/documents/dotfiles}
+\end{flushleft}
+
+\begin{flushleft}
+	Then add this line to \icli{\home/.bashrc}:
+\end{flushleft}
+
+\begin{flushleft}
+	\hbox{\cli{alias config="/usr/bin/git \flag{git-dir}=\home/documents/repos/dotfiles \flag{work-tree}=\$HOME"}}
+\end{flushleft}
+
+\begin{flushleft}
+	Next run
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{config config \flag{local} status.showUntrackedFiles no}
+\end{flushleft}
+
+\begin{flushleft}
+	Now, to add new configuration files, use the \icli{config} alias:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{config add <file>}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{config commit -m <msg>}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{config push}
+\end{flushleft}
+
+\begin{flushleft}
+	To access your dotfiles from a new machine, run through the following steps:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{cd \home/documents/repos}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git clone \flag{bare} <url> ./dotfiles}
+\end{flushleft}
+
+\begin{flushleft}
+	Define the \icli{config} alias temporarily in your current shell session:
+\end{flushleft}
+
+\begin{flushleft}
+	\hbox{\cli{alias config="/usr/bin/git \flag{git-dir}=\home/documents/repos/dotfiles \flag{work-tree}=\$HOME"}}
+\end{flushleft}
+
+\begin{flushleft}
+	Hide all untracked files on your home director:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{cd \home{} \&\& config config \flag{local} status.showUntrackedFiles no}
+\end{flushleft}
+
+\begin{flushleft}
+	Removes	your local \icli{\home/.bashrc} and \icli{\home/.bash\_profile} files.
+	If this is not what you want, rename and/or backup these files. This step is
+	mandatory to checkout the branch on the dotfiles repository.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{rm .bashrc .bash\_profile}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{config checkout}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{source \home/.bashrc}
+\end{flushleft}

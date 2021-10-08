@@ -1,0 +1,133 @@
+\section{PowerShell}\label{powershell}
+
+\begin{flushleft}
+	\emph{In PowerShell, administrative tasks are generally performed by Cmdlets
+		(pronounced command-lets), which are specialized .NET classes implementing a
+		particular operation. While bash scripts primarily consume strings and text files,
+		PowerShell is centered around the idea of processing and communicating through
+		Objects and APIs. It easily integrates into Window's COM interfaces and the .NET
+		Framework and is often regarded as the better choice for automating tasks on
+		Windows operating system.}
+\end{flushleft}
+
+\subsection{Profile Setup}\label{powershell-profile-setup}
+
+\begin{flushleft}
+	There are up to six different locations for you to choose when you want to create
+	a new PowerShell profile.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{\$PROFIE | Get-Member -Type NoteProperty | Format-List *}
+\end{flushleft}
+
+\begin{flushleft}
+	But first you will want to check if you already have a profile:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Test-Path \$HOME\textbackslash Documents\textbackslash WindowsPowerShell\textbackslash profile.ps1}
+\end{flushleft}
+
+\begin{flushleft}
+	If the result of this operation is \icli{False}, go ahead and create a new profile:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{New-Item -Force \$HOME\textbackslash Documents\textbackslash WindowsPowerShell\textbackslash profile.ps1}
+\end{flushleft}
+
+\begin{flushleft}
+	Next set the execution policy appropriately so that you can execute your own
+	PowerShell scripts:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Set-EexeutionPolicy RemoteSigned}
+\end{flushleft}
+
+\begin{flushleft}
+	Now open your profile and define a \icli{\$psrc} variable so that you access
+	this file more conveniently:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{\$gloabl:psrc="\$HOME\textbackslash Documents\textbackslash WindowsPowerShell\textbackslash profile.ps1"}
+\end{flushleft}
+
+\subsection{Core Commands}\label{powershell-core-commands}
+
+\begin{flushleft}
+	Many PowerShell commands provide a Linux-like alias for common commands:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Get-Alias -Definition <cmdlet>}
+\end{flushleft}
+
+\begin{flushleft}
+	For example, the \icli{Set-Location} Cmdlet is also accessible using any of
+	these abbreviations:
+	\textcolor{gray}{{\small\verbatiminput{files/cdalias.txt}}}
+\end{flushleft}
+
+\begin{flushleft}
+	Create a new file. You can add the \icli{[-ItemType <file|directory>]} option to
+	specify the type of file you want to create. Additionally, you can also pass
+	the \icli{-Value <string>} option to initialize the file with a string value.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{New-Item [-Path <path>] -Name <file>}
+\end{flushleft}
+
+\begin{flushleft}
+	Move a file to a new location. This Cmdlet can also be used to rename a file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Move-Item -Path <file> -Destination <file>}
+\end{flushleft}
+
+\begin{flushleft}
+	Print the content of \icli{test.txt} to standard output:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Get-Content test.txt}
+\end{flushleft}
+
+\begin{flushleft}
+	List all \icli{tex} files from the \icli{src} directory of this document,
+	and format the output accordingly. Note that \icli{gci} and \icli{ft} are
+	aliases for \icli{Get-ChildItem} and \icli{Format-Table}, respectively.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{gci .\textbackslash src -Include *.tex -Recurse | ft Name, DirectoryName}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove all log files in the current working directory:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Remove-Item -Path . -Include *.log}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove all \icli{txt} files in a sub directory:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Get-ChildItem -Path .\textbackslash exmdir\textbackslash{} *.txt -Recurse | Remove-Item}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove a directory recursively. Using the \icli{-WhatIf} option enable the dry-run
+	mode:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{Remove-Item -Recurse -Force <dir> [-WhatIf]}
+\end{flushleft}

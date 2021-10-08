@@ -1,0 +1,111 @@
+% !TEX spellcheck=en_US
+\documentclass[a4paper]{article}
+\usepackage[american]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[activate={true,nocompatibility},final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{textcomp}
+\usepackage{verbatim}
+\usepackage{xspace}
+\usepackage[acronym]{glossaries}
+
+% variables
+\newcommand*{\dorg}{Team Havel}
+\newcommand*{\dauthor}{Stefan Greve}
+\newcommand*{\dtitle}{Git Workshop for Beginners}
+\newcommand*{\dversion}{v0.1}
+
+% header
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\texttt{\dversion}}
+\lhead{\dtitle}
+\cfoot{Page \thepage}
+
+% colors
+\definecolor{lightgray}{rgb}{0.9725,0.9725,0.9725}
+\definecolor{nexusred}{HTML}{B80F2E}
+
+% misc macros
+\newcommand*{\pref}[2]{#1 (\ref{#2})}
+\newcommand*{\flag}[1]{{-}{-}#1}
+\newcommand*{\icli}[1]{\textcolor{nexusred}{\texttt{#1}}}
+\newcommand*{\cli}[1]{\quad\icli{#1}}
+\newcommand*{\home}{\raisebox{0.5ex}{\texttildelow}}
+\newcommand*{\carret}{\textbackslash r\xspace}
+\newcommand*{\linefeed}{\textbackslash n\xspace}
+
+% microtype
+\SetTracking{encoding={*}, shape=sc}{0}
+
+\setacronymstyle{short-long}
+\makenoidxglossaries
+
+\include{acronyms}
+
+\begin{document}
+
+\begin{titlepage}
+	\centering
+	{\scshape\Huge\bfseries{\dorg}\par}
+	\par\vspace{3cm}
+	\includegraphics[width=0.45\textwidth]{images/logo.jpg}\par
+	\vspace{3cm}
+	{\huge\bfseries\dtitle\par}
+	\vspace{1cm}
+	{\LARGE\itshape\dauthor\par}
+	\vspace{1cm}
+	{\large\today\par}
+	\vfill
+	\begin{abstract}
+		\texttt{git} is a mature, actively maintained open-source project originally
+		developed by Linus Torvald, whose most notably known for creating the Linux
+		kernel. The purpose of this document is to help you understand when and how
+		to use distributed version control systems in your projects by way of example.
+	\end{abstract}
+\end{titlepage}
+
+\newpage
+
+\printnoidxglossary[type=\acronymtype]
+
+\newpage
+
+\microtypesetup{protrusion=false}
+\tableofcontents
+\microtypesetup{protrusion=true}
+
+\newpage
+
+% === Begin Section Includes ===
+
+\input{sections/preamble}
+
+\input{sections/configuration}
+
+\input{sections/ssh-keys}
+
+\input{sections/semver}
+
+\input{sections/core-commands}
+
+\input{sections/misc-commands}
+
+\input{sections/bash}
+
+\input{sections/powershell}
+
+\input{sections/software-licenses}
+
+\input{sections/project-management}
+
+% === End Section Includes ====
+
+\end{document}

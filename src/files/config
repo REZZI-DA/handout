@@ -1,0 +1,12 @@
+# primary accunt
+Host github.com
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+# secondary account
+Host github.com-<username>
+    User git
+    HostName github.com
+    IdentityFile ~/.ssh/<username>_id_rsa
+    IdentitiesOnly yes

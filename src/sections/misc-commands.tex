@@ -1,0 +1,384 @@
+\section{Miscellaneous Commands}\label{git-misc-commands}
+
+% === git remote
+
+\subsection{Remotes}\label{git-remote}
+
+\begin{flushleft}
+	Change the remote URL on a local repository (here: \icli{origin}):
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git remote set-url origin <url>}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove a remote:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git remote rm <remote>}
+\end{flushleft}
+
+% === git branch
+
+\subsection{Branches}\label{git-branch}
+
+\begin{flushleft}
+	Rename the active branch:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git branch -m <newname>}
+\end{flushleft}
+
+\begin{flushleft}
+	If you want to rename this branch on GitHub as well, run additionally:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push origin -u <newname>}
+\end{flushleft}
+
+\begin{flushleft}
+	To check out a branch from GitHub, use:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git fetch \flag{all}}
+\end{flushleft}
+\vspace{-0.4cm}
+\begin{flushleft}
+	\cli{git checkout -b <branch> origin/<branch>}
+\end{flushleft}
+
+\begin{flushleft}
+	Delete a local and remote branch:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git branch \flag{delete} <branch>}
+\end{flushleft}
+\vspace{-0.4cm}
+\begin{flushleft}
+	\cli{git push origin \flag{delete} <branch>}
+\end{flushleft}
+
+% === git tag
+
+\subsection{Tags}\label{git-tag}
+
+\begin{flushleft}
+	Add a new tag:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git tag <version>}
+\end{flushleft}
+
+\begin{flushleft}
+	Add a new annotated tag:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git tag -a <version> -m <msg>}
+\end{flushleft}
+
+\begin{flushleft}
+	Add a new annotated tag to a previous commit:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git tag -a <version> -m <msg> <sha>}
+\end{flushleft}
+
+\begin{flushleft}
+	Push a specific tag to remote:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push origin <version>}
+\end{flushleft}
+
+\begin{flushleft}
+	Push all tags to remote:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push origin \flag{tags}}
+\end{flushleft}
+
+\begin{flushleft}
+	Delete a local tag:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git tag \flag{delete} <version>}
+\end{flushleft}
+
+\begin{flushleft}
+	Delete a remote tag:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push \flag{delete} origin <version>}
+\end{flushleft}
+
+% === git log
+
+\subsection{Logs}\label{git-log}
+
+\begin{flushleft}
+	Display all commits from a particular author:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git log \flag{author}=<name> \flag{oneline}}
+\end{flushleft}
+
+\begin{flushleft}
+	Get commits in a time range using Ruby expressions:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git log \flag{after} 10.days.ago \flag{oneline}}
+\end{flushleft}
+
+\begin{flushleft}
+	View commit history as ASCII graph:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git log \flag{graph}}
+\end{flushleft}
+
+\begin{flushleft}
+	Format log output:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git log \flag{pretty}:"<options>"}
+\end{flushleft}
+
+\begin{flushleft}
+	See also this \url{https://git-scm.com/docs/pretty-formats} for more information.
+\end{flushleft}
+
+% === git diff
+
+\subsection{Diffs}\label{git-diffs}
+
+\begin{flushleft}
+	Inspect diff statistics:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git diff \flag{stat}}
+\end{flushleft}
+
+\begin{flushleft}
+	View the diff stats from last month:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git diff \flag{numstat} "\@{1 month ago}"}
+\end{flushleft}
+
+\begin{flushleft}
+	View diffs from staged files; note that without this last flag nothing would be displayed:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git diff \flag{staged}}
+\end{flushleft}
+
+\begin{flushleft}
+	View diffs between two branches:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git diff [\flag{name-only}] master...<branch>}
+\end{flushleft}
+
+\begin{enumerate}
+	\item the \icli{\flag{name-only}} options only lists modified files without its diffs
+	\item this syntax also works for comparing tags (with branches or other tags)
+	\item the order of branches matters: \icli{<target-branch>...<active-branch>}
+	\item the command \icli{git diff ..master} compares the checked-out branch to \icli{master}
+\end{enumerate}
+
+\begin{flushleft}
+	You can refine this diffs even more with
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git diff ..master {-}{-} <path> }
+\end{flushleft}
+
+% === git submodule
+
+\subsection{Submodules}\label{git-submodule}
+
+\begin{flushleft}
+	Add a new submodule:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git submodule add <url>}
+\end{flushleft}
+
+\begin{flushleft}
+	Update all submodules (after a pull):
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git submodule update \flag{init} \flag{recursive}}
+\end{flushleft}
+
+\begin{flushleft}
+	Submodules are removed the same way you would remove any file in Git.
+\end{flushleft}
+
+% === git stash
+
+\subsection{Stash}\label{git-stash}
+
+\begin{flushleft}
+	This command is very useful if you want to change branches without having to
+	commit or discard any changes made locally. See also the example at the end of
+	this subsection for a more basic rundown and hands-on example on how to use this
+	command.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash [\flag{include-untracked}|\flag{all}|\flag{path} <file(s)>]}
+\end{flushleft}
+
+\begin{flushleft}
+	By default, this command ignores untracked or ignored files. If you don't want
+	that, make sure to add the \icli{\flag{include-untracked}} option to also include
+	untracked files as well (or use the  \icli{\flag{all}} option if you want to stash
+	all untracked \emph{and} ignored files). To stash specific files, use the \icli{\flag{patch}}
+	option which accepts one or more file paths.
+\end{flushleft}
+
+\begin{flushleft}
+	You can review your stash with the
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash list}
+\end{flushleft}
+
+\begin{flushleft}
+	command which are stored using a LIFO strategy. By default, stashes are marked as
+	WIP on top of the branch and commit that you created the stash from. However, this
+	limited amount of information isn't helpful when you have multiple stashes, as it
+	becomes difficult to remember or individually check their contents. To add a description
+	to the stash, you can use the command
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash save <description>}
+\end{flushleft}
+
+\begin{flushleft}
+	As the name implies, this command applies the topmost stash (if no ID is specified):
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash apply}
+\end{flushleft}
+
+\begin{flushleft}
+	You can target a specific stash using stash IDs. The above command, for instance,
+	is equivalent to
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash apply@\{0\}}
+\end{flushleft}
+
+\begin{flushleft}
+	The \icli{pop} command is similar \icli{apply}, but does one more thing in sequence:
+	after applying the patch it drops this stash from the list. However, if there are
+	conflicts when a stash is popped, \icli{pop} will not remove the stash.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash pop}
+\end{flushleft}
+
+\begin{flushleft}
+	If you have multiple stashes, you can inspect the diff with the \icli{show} command.
+	The \icli{\flag{path}} flag is optional here and produces a more verbose output.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash show stash@\{0\} [\flag{patch}]}
+\end{flushleft}
+
+\begin{flushleft}
+	You can pass a stash ID to delete an individual stash from the stash list. For
+	example, to remove the second stash run:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash drop@\{1\}}
+\end{flushleft}
+
+\begin{flushleft}
+	To clear the entire stash, use:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash clear}
+\end{flushleft}
+
+\subsubsection{Switching Branches on the Fly}
+
+\begin{flushleft}
+	In this scenario, you are currently on the \icli{feature-01} branch, but want
+	to check out the \icli{feature-02} branch with a untracked changes in your
+	current directory:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git stash \flag{all}}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git checkout feature-02}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{\# taking a quick gander here :)}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git checkout feature-01}
+\end{flushleft}
+\vspace{-0.6cm}
+\begin{flushleft}
+	\cli{git stash pop}
+\end{flushleft}
+
+% === git clean
+
+\subsection{Clean}\label{git-clean}
+
+\begin{flushleft}
+	Remove all untracked files. If the Git variable \icli{clean.requireForce} is
+	not set to \icli{false}, \icli{clean} will refuse to delete files or directories
+	unless a second \icli{-f} is given.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git clean <-i|-n|-f> -d .}
+\end{flushleft}
+
+\begin{itemize}
+	\item \icli{-i} (or \icli{\flag{interactive}}) will show what would be done and clean files interactively
+	\item \icli{-n} (or \icli{\flag{dry-run}}) will not remove anything and only show what would be done
+	\item \icli{-f} (or \icli{\flag{force}}) will set \icli{clean.requireForce} to false
+\end{itemize}

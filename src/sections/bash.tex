@@ -1,0 +1,117 @@
+\section{Bash}\label{bash}
+
+\begin{flushleft}
+	\emph{Bash is the GNU Project's shell and short for the Bourne Again SHell.
+		As of today, Bash is the most popular shell among Linux users. Due to its
+		popularity and widespread usage, Bash has also been ported to Windows and
+		distributed with \href{https://cygwin.com/}{Cygwin} and
+		\href{https://osdn.net/projects/mingw/}{MinGW}. As opposed to Windows,
+		UNIX is an entire ecosystem self-tuned around text files.}
+\end{flushleft}
+
+\subsection{Profile Setup}\label{bash-profile}
+
+\begin{flushleft}
+	On most systems, \icli{\home/.bashrc} is only used when you startup an interactive
+	non-login shell. However, if you open a new shell it is often an interactive login
+	shell which completely ignores your configuration in \icli{\home/.bashrc} unless
+	source the \icli{\home/.bashrc} from your \icli{\home/.profile} or \icli{\home/.bash\_profile}
+	file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{[[ -f \home/.bashrc ]] \&\& .\, \home/.bashrc}
+\end{flushleft}
+
+\subsection{Core Commands}\label{bash-core-commands}
+
+\begin{flushleft}
+	Create a new file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{touch <file>}
+\end{flushleft}
+
+\begin{flushleft}
+	Initialize a \icli{txt} file with a string value:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{echo "Hello, World!" > test.txt}
+\end{flushleft}
+
+\begin{flushleft}
+	Print out the content of \icli{test.txt} to standard output:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{cat [\flag{number}] test.txt}
+\end{flushleft}
+
+\begin{flushleft}
+	Print the first ten lines of the file. Pipe the output to \icli{tail} to
+	reverse this effect:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{cat test.txt | head}
+\end{flushleft}
+
+\begin{flushleft}
+	Create a new directory. Use the \icli{-p} if one or more parents don't exist.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{mkdir [-p] <path>}
+\end{flushleft}
+
+\begin{flushleft}
+	Move a file to a new location. This Cmdlet can also be used to rename a file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{mv <path> <destination>}
+\end{flushleft}
+
+\begin{flushleft}
+	List all files in a specific directory. Use the \icli{g} flag for a long listing
+	format (excluding the owner), and \icli{\flag{color}=auto} for colorful output.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{ls <dir> [-g|\flag{color=auto}]}
+\end{flushleft}
+
+\begin{flushleft}
+	List all \icli{tex} files from the \icli{src} directory of this document,
+	and format the output accordingly.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{ls -g {-}{-}  src/**/*.tex}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove a file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{rm <file>}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove an empty directory:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{rmdir <dir>}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove a non-empty directory recursively and run this command in a dry-run mode:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{rm -rf <dir> \flag{dry-run}}
+\end{flushleft}

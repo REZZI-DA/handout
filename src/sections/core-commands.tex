@@ -1,0 +1,105 @@
+\section{Core Commands}\label{git-core-commands}
+
+\begin{flushleft}
+	\emph{All commands outlined in this section are part of many common Git workflows.
+		Simply put, they are worth memorizing because you'll find yourself typing them
+		into the console very often before you even know it.}
+\end{flushleft}
+
+\begin{flushleft}
+	Initialize a new repository:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git init [path]}
+\end{flushleft}
+
+\begin{flushleft}
+	Clone a repository:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git clone <url> [path]}
+\end{flushleft}
+
+\begin{flushleft}
+	Stage a file, or all at once:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git add <path|\flag{all}>}
+\end{flushleft}
+
+\begin{flushleft}
+	Commit all files in the staging area; use the \icli{-m} flag for short commit messages.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git commit [-m <msg>]}
+\end{flushleft}
+
+\begin{flushleft}
+	Rename a file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git mv <oldpath> <newnpath>}
+\end{flushleft}
+
+\begin{flushleft}
+	Remove a file:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git rm <path>}
+\end{flushleft}
+
+\begin{flushleft}
+	Stage a new file and append it to the last commit. Useful if you forgot to
+	change something. Note that you have to force push this commit if it was
+	already pushed previously. As a rule of thumb, you should never force push
+	anything unless you're aware of all the negative side effects this option
+	can cause.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git add <file>}
+\end{flushleft}
+\vspace{-0.4cm}
+\begin{flushleft}
+	\cli{git commit \flag{amend} \flag{no-edit}}
+\end{flushleft}
+
+\begin{flushleft}
+	Edit the last commit message. Because this action also irreversibly changes
+	Git's history in retrospective, the aforementioned warning also applies here.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git commit \flag{amend}}
+\end{flushleft}
+
+\begin{flushleft}
+	Push your commits to a remote repository:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push [\flag{force}]}
+\end{flushleft}
+
+\begin{flushleft}
+	Create a new branch based off the current branch:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git checkout -b <branch>}
+\end{flushleft}
+
+\begin{flushleft}
+	Push the current branch and set the remote as upstream. An upstream is an another
+	branch name, usually a remote-tracking branch, associated with a local branch.
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{git push \flag{set-upstream} origin <branch>}
+\end{flushleft}

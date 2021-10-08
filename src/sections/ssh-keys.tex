@@ -1,0 +1,98 @@
+\section{SSH Keys}
+
+\begin{flushleft}
+	SSH keys are used for for many different things, \textit{inter alia}
+\end{flushleft}
+
+\begin{itemize}
+	\item \textbf{Remote Access:} SSH ensures encrypted remote connections for users
+	      and processes.
+	\item \textbf{File Transfer:} SFTP, a secure file transfer protocol managed by SSH,
+	      provides a safe way to manipulate files over a network.
+	\item \textbf{Port Forwarding:} By mapping a client's port to the server's remote ports,
+	      SSH helps secure other network protocols, such as TCP/IP.
+	\item \textbf{Tunneling:} This encapsulation technique provides secure data transfers.
+	      Tunneling is useful for accessing business-sensitive data online materials from unsecured
+	      networks, as it can act as a handy alternative to VPN.
+	\item \textbf{Network Management:} The SSH protocol manages network infrastructure and
+	      other parts of the system.
+\end{itemize}
+
+\begin{flushleft}
+	The two most common SSH user authentication methods used are passwords and SSH keys.
+	The clients safely send encrypted passwords to the server. However, passwords are a
+	risky authentication method because their strength depends on the user’s awareness of
+	what constitutes a strong password. Asymmetrically encrypted SSH public-private key
+	pairs are a more secure alternative to using passwords. As of August 12th, 2021 GitHub
+	made the move to permanently shut down password authentication due to security concerns.
+	While you can use a token-based authentication method in its place, using a passphrase
+	protected SSH key are by and large still the better alternative if security is means
+	anything to you. Many hosting services such as GitHub and GitLab allow you to revoke
+	an active SSH key in case of loss or security breach.
+\end{flushleft}
+
+\begin{flushleft}
+	First create an SSH key with a passphrase for easier authentication\footnote{if you're on Windows,
+		use the Git Bash terminal. If you don't have access to WSL, copy and paste the relevant
+		sections by hand.}:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{ssh-keygen -t rsa -b 4096 -C \$(eval xclip -sel clip -o)}
+\end{flushleft}
+
+\begin{flushleft}
+	Next start the SSH agent:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{eval \$(ssh-agent -s)}
+\end{flushleft}
+
+\begin{flushleft}
+	Then add and test the SSH key:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{ssh-add \home/.ssh/id\_rsa}
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{ssh -T git@github.com}
+\end{flushleft}
+
+\begin{flushleft}
+	If you didn't run into any errors in the previous step, go ahead and copy the public key to clipboard:
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{cat \home/.ssh/id\_rsa.pub | xclip -sel clip}
+\end{flushleft}
+
+\begin{flushleft}
+	After that open \href{https://github.com/}{GitHub} and navigate to \texttt{Settings}.
+	Click on the \texttt{SSH and GPG keys} tab, add your public key and give
+	it a descriptive name. Starting the SSH agent for every shell session can be
+	annoying sometimes, but you can configure your terminal to automatically start
+	the SSH key agent with each new shell session. On Linux, it's as easy as adding
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{eval \$(eval ssh-agent) > dev/null 2>\&1}
+\end{flushleft}
+
+\begin{flushleft}
+	your \texttt{\home/.bashrc} file. In addition to that you also need to run
+\end{flushleft}
+
+\begin{flushleft}
+	\cli{echo "AddKeysToAgent yes" >> \home/.ssh/config}
+\end{flushleft}
+
+\begin{flushleft}
+	Another advantage of using SSH keys is that they make it much easier to handle
+	user authentication for different accounts in a shared environment. This solution
+	also works accross many different hosting services, \textit{e.g.} if you want to
+	keep your private GitHub account separated from your work account:
+	\textcolor{gray}{{\small\verbatiminput{files/config}}}
+\end{flushleft}
