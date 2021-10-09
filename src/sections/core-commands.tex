@@ -1,9 +1,9 @@
 \section{Core Commands}\label{git-core-commands}
 
 \begin{flushleft}
-	\emph{All commands outlined in this section are part of many common Git workflows.
+	\emph{All commands outlined in this section belong to common Git workflows.
 		Simply put, they are worth memorizing because you'll find yourself typing them
-		into the console very often before you even know it.}
+		into the console frequently before you even know it.}
 \end{flushleft}
 
 \begin{flushleft}
@@ -19,7 +19,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-	\cli{git clone <url> [path]}
+	\cli{git clone <url> [path] [\flag{mirror}]}
 \end{flushleft}
 
 \begin{flushleft}
@@ -32,6 +32,8 @@
 
 \begin{flushleft}
 	Commit all files in the staging area; use the \icli{-m} flag for short commit messages.
+	Git will use \icli{core.editor} to determine with which editor you want to write your
+	multiline commit message.
 \end{flushleft}
 
 \begin{flushleft}
@@ -59,7 +61,7 @@
 	change something. Note that you have to force push this commit if it was
 	already pushed previously. As a rule of thumb, you should never force push
 	anything unless you're aware of all the negative side effects this option
-	can cause.
+	implies.
 \end{flushleft}
 
 \begin{flushleft}
@@ -72,7 +74,7 @@
 
 \begin{flushleft}
 	Edit the last commit message. Because this action also irreversibly changes
-	Git's history in retrospective, the aforementioned warning also applies here.
+	Git's history retrospectively, the aforementioned warning also applies here.
 \end{flushleft}
 
 \begin{flushleft}

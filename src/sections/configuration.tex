@@ -28,7 +28,8 @@
 
 \begin{flushleft}
 	If you configure a new account on a machine where Git hasn't been used before,
-	make sure to set master as the default branch name everywhere.
+	make sure to set master as the default branch name everywhere. This also needs
+	to be done for any hosting service you may end up using, such as GitHub or GitLab.
 \end{flushleft}
 
 \begin{flushleft}
@@ -121,8 +122,8 @@
 \end{flushleft}
 
 \begin{flushleft}
-	Display log history as graph. Can be extended through the \icli{\flag{branches} \flag{tags}}
-	and \icli{\flag{all}} flags, making the output of this command increasingly verbose:
+	Display the log history as a graph. Can be extended through the \icli{\flag{branches} \flag{tags}}
+	and \icli{\flag{all}} flags which make the output of this command increasingly verbose:
 \end{flushleft}
 
 \begin{flushleft}
@@ -133,7 +134,9 @@
 
 \begin{flushleft}
 	A dotfile repository is a special repository Linux user use to store configuration
-	files.
+	files. You should be able to replicate this process on Windows with making only a
+	few minor modifications. On Windows use a PowerShell profile for defining persistent
+	settings.
 \end{flushleft}
 
 \begin{flushleft}
@@ -165,7 +168,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-	Now, to add new configuration files, use the \icli{config} alias:
+	Now, to add new configuration files to the dotfiles repository, use the \icli{config} alias:
 \end{flushleft}
 
 \begin{flushleft}
@@ -181,7 +184,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-	To access your dotfiles from a new machine, run through the following steps:
+	To consume your dotfiles repository from another machine, run through the following steps:
 \end{flushleft}
 
 \begin{flushleft}
